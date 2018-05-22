@@ -1,0 +1,8 @@
+Pipfile
+**/__pycache__
+.markdown-preview.html
+build/
+dist/
+**egg-info/
+docs/_build
+.coverage
