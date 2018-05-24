@@ -50,14 +50,16 @@ class _Scheduler(threading.Thread):
 
     def stop(self):
         """Don't make or schedule any calls until further notice."""
-        self._scheduler.cancel(self._next_call)
+        for event in self._scheduler.queue:
+            self._scheduler.cancel(event)
+
 
     def _call_and_queue(self) -> None:
         self._task()
         self._queue()
 
     def _queue(self) -> None:
-        self._next_call = self._scheduler.enter(self._rate, 1, self._call_and_queue)
+        self._scheduler.enter(self._rate, 1, self._call_and_queue)
         self._scheduler.run()
 
 
