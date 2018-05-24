@@ -8,7 +8,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='recurring',
-    version='1.0.0',
+    version='1.0.1',
     description='Run a function or other callable every N seconds',
     long_description=long_description,
     long_description_content_type='text/markdown',
