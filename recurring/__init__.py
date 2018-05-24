@@ -82,7 +82,7 @@ class job:
         self._scheduler.start()
 
     def stop(self, timeout=None) -> None:
-        """Don't make any more calls until further notics"""
+        """Don't make any more calls until further notice"""
         self._scheduler.stop()
         self._scheduler.join(timeout)
         self._scheduler = None
