@@ -45,3 +45,25 @@ class TestRecurringTask(TestCase):
         r.stop()
 
         self.assertGreater(task.call_count, first_call_count)
+
+    def testTermination(self):
+        task = MagicMock()
+        r = job(task, 1)
+        r.start()
+
+        time.sleep(2)
+        call_count = task.call_count
+
+        r.terminate()
+
+        self.assertEqual(task.call_count, call_count,
+                         f'Expected to not have more than {call_count} calls after terminate, got {task.call_count}')
+
+        self.assertFalse(r._scheduler.is_alive(),
+                         "Scheduler reports itself as alive after terminate!")
+
+        with self.assertRaisesRegex(RuntimeError, 'Attempt to start terminated job'):
+            r.start()
+
+        with self.assertRaisesRegex(RuntimeError, 'Attempt to set the rate of terminated job'):
+            r.rate = 4
