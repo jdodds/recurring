@@ -13,6 +13,10 @@ Example:
     j.rate = some_new_seconds
     # ...
     j.stop()
+    # ...
+    j.start()
+    # ...
+    j.terminate()
 """
 
 import threading
@@ -25,8 +29,6 @@ class _Scheduler(threading.Thread):
 
     def __init__(self, rate: int, task: Callable) -> None:
         """Initialize our scheduling and calling thread.
-
-
 
         Args:
             rate (int): How often, in seconds, to schedule calls.
@@ -123,10 +125,7 @@ class job:
 
     @property
     def rate(self) -> int:
-        """int: seconds in between calls
-
-        When set, our internal scheduler is destroyed and recreated. This is a thread join and start under the hood.
-        """
+        """int: seconds in between calls"""
         return self._rate
 
     @rate.setter

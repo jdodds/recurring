@@ -18,6 +18,10 @@ This is a simple library for running a function or callable every N seconds. It'
 
 This is not a library intended for top-level program composition.
 
+## Installation:
+
+    pip install recurring
+
 ## Usage:
 
 
@@ -38,6 +42,13 @@ This is not a library intended for top-level program composition.
 
     # ...
 
-    # blocks until runner thread is dead, only upto timeout seconds if given. runner is a daemon thread under the heed
-    # and will get killed when the rest of the process dies regardless.
-    job.stop(optionally_some_timeout)
+    # stop making calls until start() is called again
+    job.stop()
+
+    # some time later ....
+    job.start()
+
+    # stop making calls permanently
+    job.terminate()
+    job.start() # raises RuntimeError
+    job.rate = 3000 # raises RuntimeError
